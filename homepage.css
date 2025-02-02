@@ -1,0 +1,98 @@
+/* homepage.css */
+
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-image: url('images/background2.jpg'); /* Your image path */
+    background-size: cover;  /* Make the image cover the entire screen */
+    background-position: center center;  /* Center the image */
+    background-attachment: fixed;  
+    color: #555;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Container for the content */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    text-align: center;
+}
+
+/* Welcome header */
+h1 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/* Links section */
+ul {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 0;
+}
+
+ul li {
+    list-style: none;
+}
+
+ul li a {
+    text-decoration: none;
+    font-size: 18px;
+    color: #3498db;
+    background-color: #fff;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+ul li a:hover {
+    color: #fff;
+    background-color: #3498db;
+    border-color: #3498db;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Additional styling for the logout link */
+ul li a.logout {
+    background-color: #e74c3c;
+    color: white;
+    border: 2px solid transparent;
+}
+
+ul li a.logout:hover {
+    background-color: #c0392b;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    ul {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    ul li a {
+        margin-bottom: 10px;
+        width: 80%;
+    }
+}
