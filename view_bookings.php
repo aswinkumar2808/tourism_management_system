@@ -1,11 +1,8 @@
 <?php
-// Include the database connection
 include('db.php');
 
-// Start session
 session_start();
 
-// Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit();
@@ -13,19 +10,17 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-// Use a prepared statement to fetch user's bookings
 $sql = "SELECT b.booking_id, p.name AS package_name, b.travel_date, b.number_of_people, b.total_price 
         FROM bookings b 
         JOIN packages p ON b.package_id = p.package_id 
         WHERE b.user_id = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $user_id); // Bind the user_id as an integer
+$stmt->bind_param("i", $user_id); 
 $stmt->execute();
 $result = $stmt->get_result();
-
 ?>
 
-<!-- Link to the new CSS file -->
+
 <link rel="stylesheet" href="view_bookings.css">
 
 <div class="bookings-container">
@@ -58,7 +53,6 @@ $result = $stmt->get_result();
 </div>
 
 <?php
-// Close the database connection
 $stmt->close();
 $conn->close();
 ?>

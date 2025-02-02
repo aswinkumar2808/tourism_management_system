@@ -1,7 +1,6 @@
 <?php
-include('db.php'); // Include the database connection
+include('db.php'); 
 
-// Check if the connection is successful
 if ($conn) {
     echo "Connection successful!";
 } else {

@@ -1,8 +1,6 @@
 <?php
-// Include database connection
 include('db.php');
 
-// Initialize message variables
 $errors = [
     'full_name' => '',
     'email' => '',
@@ -12,43 +10,32 @@ $errors = [
     'general' => ''
 ];
 
-// Function to validate email format
 function isValidEmail($email) {
     return filter_var($email, FILTER_VALIDATE_EMAIL);
 }
 
-// Function to validate username format (alphanumeric only, 3 to 20 characters)
-// Function to validate username format (allowing underscores)
 function isValidUsername($username) {
     return preg_match('/^[a-zA-Z0-9_]{3,20}$/', $username);
 }
 
-
-// Check if form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Get form data with sanitization
     $full_name = htmlspecialchars($_POST['full_name']);
     $email = htmlspecialchars($_POST['email']);
     $username = htmlspecialchars($_POST['username']);
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
-
-    // Validate the passwords match
     if ($password !== $confirm_password) {
         $errors['confirm_password'] = "Passwords do not match!";
     }
 
-    // Validate email format
     if (!isValidEmail($email)) {
         $errors['email'] = "Invalid email format!";
     }
 
-    // Validate username format
     if (!isValidUsername($username)) {
         $errors['username'] = "Username must be 3-20 alphanumeric characters only!";
     }
 
-    // Check if the email already exists
     $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
@@ -58,7 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errors['email'] = "Email already in use!";
     }
 
-    // Check if the username already exists
     $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
@@ -68,12 +54,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errors['username'] = "Username already in use!";
     }
 
-    // If no errors, proceed
     if (empty(array_filter($errors))) {
-        // Hash the password securely
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-        // Prepare SQL statement to prevent SQL injection
         $stmt = $conn->prepare("INSERT INTO users (full_name, email, username, password) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("ssss", $full_name, $email, $username, $hashed_password);
 
@@ -84,7 +67,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $errors['general'] = "Database error: " . $stmt->error;
         }
 
-        // Close the statement
         $stmt->close();
     }
 }
@@ -106,19 +88,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
 
-<!-- General error message -->
 <?php if ($errors['general']): ?>
     <div class="message-container">
         <div class="error"><?php echo $errors['general']; ?></div>
     </div>
 <?php endif; ?>
 
-<!-- Signup Form -->
 <div class="container">
     <h2>Sign Up</h2>
     <form method="POST" action="signup.php">
         
-        <!-- Full Name -->
         <div class="form-group">
             <label for="full_name">Full Name:</label>
             <input type="text" name="full_name" placeholder="Full Name" value="<?php echo isset($_POST['full_name']) ? htmlspecialchars($_POST['full_name']) : ''; ?>" required>
@@ -127,7 +106,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <?php endif; ?>
         </div>
 
-        <!-- Email -->
         <div class="form-group">
             <label for="email">Email:</label>
             <input type="email" name="email" placeholder="Email" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>" required>
@@ -136,7 +114,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <?php endif; ?>
         </div>
 
-        <!-- Username -->
         <div class="form-group">
             <label for="username">Username:</label>
             <input type="text" name="username" placeholder="Username" value="<?php echo isset($_POST['username']) ? htmlspecialchars($_POST['username']) : ''; ?>" required>
@@ -145,7 +122,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <?php endif; ?>
         </div>
 
-        <!-- Password -->
         <div class="form-group">
             <label for="password">Password:</label>
             <input type="password" name="password" placeholder="Password" required>
@@ -154,7 +130,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <?php endif; ?>
         </div>
 
-        <!-- Confirm Password -->
         <div class="form-group">
             <label for="confirm_password">Confirm Password:</label>
             <input type="password" name="confirm_password" placeholder="Confirm Password" required>

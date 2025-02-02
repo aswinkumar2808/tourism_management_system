@@ -1,18 +1,14 @@
-/* homepage.css */
-
-/* General Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Body */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-image: url('images/background2.jpg'); /* Your image path */
-    background-size: cover;  /* Make the image cover the entire screen */
-    background-position: center center;  /* Center the image */
+    background-image: url('images/background2.jpg'); 
+    background-size: cover;  
+    background-position: center center;  
     background-attachment: fixed;  
     color: #555;
     display: flex;
@@ -21,7 +17,6 @@ body {
     min-height: 100vh;
 }
 
-/* Container for the content */
 .container {
     width: 100%;
     max-width: 1200px;
@@ -33,7 +28,6 @@ body {
     text-align: center;
 }
 
-/* Welcome header */
 h1 {
     font-size: 28px;
     color: #333;
@@ -41,7 +35,6 @@ h1 {
     font-weight: 600;
 }
 
-/* Links section */
 ul {
     display: flex;
     justify-content: space-around;
@@ -73,7 +66,6 @@ ul li a:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Additional styling for the logout link */
 ul li a.logout {
     background-color: #e74c3c;
     color: white;
@@ -84,7 +76,6 @@ ul li a.logout:hover {
     background-color: #c0392b;
 }
 
-/* Mobile Responsiveness */
 @media (max-width: 768px) {
     ul {
         flex-direction: column;

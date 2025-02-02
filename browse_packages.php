@@ -35,8 +35,6 @@ $result = $conn->query($sql);
 <div class="container">
     <h2>Browse Tour Packages</h2>
 
-    <!-- Search Form -->
-    <!-- Search Form -->
 <form method="GET" action="browse_packages.php">
     <input type="text" name="search" placeholder="Search packages..." value="<?php echo htmlspecialchars($search); ?>">
     <label>Min Price:</label>
